@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+/*
+Use this in case you want to have a theme depending on your browser theme
+themes: light --default, sunset --prefersdark;
+*/
+@plugin "daisyui" {
+  themes: sunset --default;
+}
