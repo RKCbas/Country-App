@@ -18,6 +18,10 @@ export const countryRoutes: Routes = [
                 loadComponent: () => import('./pages/by-region-page/by-region-page.component')
             },
             {
+                path: 'by/:code',
+                loadComponent: () => import('./pages/country-page-component/country-page-component.component')
+            },
+            {
                 path: '**',
                 redirectTo: 'by-capital'
             }
