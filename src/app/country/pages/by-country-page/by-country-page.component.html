@@ -4,9 +4,11 @@
     (search)="query.set($event)"
 />
 
-@if (countryResource.error()) {
-    <h3 class="flex items-center mt-5 justify-center ">{{ countryResource.error() }}</h3>
-} 
-@else if ( countryResource.hasValue() ){
-    <country-list [countries]="countryResource.value()!" />
-}
+<country-list 
+  [countries]="countryResource.value() ?? []" 
+  [errorMessage]="countryResource.error()"
+  [isEmpty]="countryResource.value()?.length===0"
+  [isLoading]="countryResource.isLoading()"
+/>
+
+

@@ -13,8 +13,11 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CountryListComponent {
-  
+
   countries = input.required<Country[]>();
 
+  errorMessage = input<string | unknown | null>();
+  isLoading = input<boolean>(false);
+  isEmpty = input<boolean>(false);
 
 }
