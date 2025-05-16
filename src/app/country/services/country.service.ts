@@ -26,7 +26,21 @@ export class CountryService {
         return throwError(()=> new Error(`No se pudo obtener países con ese query ${query}`))
       })
     )
+  }
 
+  searchByCountry(query: string){
+    query = query.toLowerCase();
+
+    return this.http.get<RESTCountry[]>(`${API_URL}/name/${query}`)
+    .pipe(
+      map(
+        (items) => CountryMapper.mapRestCountryArrayToCountryArray(items)
+      ),
+      catchError(error=>{
+        console.log('Error fetching', error)
+        return throwError(()=> new Error(`No se pudo obtener países con ese query ${query}`))
+      })
+    )
 
   }
 
