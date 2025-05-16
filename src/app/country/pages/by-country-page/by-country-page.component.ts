@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, resource, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { CountryService } from '../../services/country.service';
-import { firstValueFrom } from 'rxjs';
+import { of } from 'rxjs';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'by-country-page',
@@ -18,16 +19,14 @@ export default class ByCountryPageComponent {
   countryService = inject(CountryService);
   query = signal('');
 
-  countryResource = resource({
+  countryResource = rxResource({
     request: () => ({ query: this.query() }),
-    loader: async({ request }) => {
+    loader: ({ request }) => {
 
-      if(!this.query()) return [];
+      if(!this.query()) return of([]);
 
-      return await firstValueFrom(
-        this.countryService.searchByCountry(request.query)
-      )
-
+      return this.countryService.searchByCountry(request.query)
+      
     }
   });
 
