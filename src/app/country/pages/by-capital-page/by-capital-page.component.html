@@ -1,10 +1,10 @@
-
 <search-input
-    [placeholder]="'Buscar por capital'"
-    (search)="handleOnSearch($event)"
+  [placeholder]="'Buscar por capital'"
+  (search)="handleOnSearch($event)"
 />
 
-
-<country-list
-    [countries]="countries()"
-/>
+@if (isError()) {
+    <h3 class="flex items-center mt-5 justify-center ">{{ isError() }}</h3>
+} @else {
+    <country-list [countries]="countries()" />
+}
