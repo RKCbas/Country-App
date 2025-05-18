@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
@@ -10,10 +11,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),
     // HashStrategy
-    // {
-    //   provide: LocationStrategy,
-    //   useClass: HashLocationStrategy
-    // },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
     provideHttpClient(withFetch())
   ]
 };
