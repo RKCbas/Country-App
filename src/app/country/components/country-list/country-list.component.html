@@ -17,7 +17,7 @@
         <td>{{ index + 1 }}</td>
         <td>{{ country.flag }}</td>
         <td>
-          <img [src]="country.flagSvg" [alt]="country.name" class="w-10" />
+          <img [src]="country.flagSvg" [alt]="country.name" class="w-25" />
         </td>
         <td>{{ country.name }}</td>
         <td>
@@ -28,7 +28,7 @@
             {{ country.population | number }}
           </span>
         </td>
-        <td>
+        <td class="">
           <a
             [routerLink]="['/country/by', country.cca2]"
             class="link-primary cursor-pointer"
