@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, linkedSignal, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, linkedSignal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop'
 
 import { of } from 'rxjs';
@@ -22,6 +22,8 @@ export default class ByCapitalPageComponent {
 
   countryService = inject(CountryService)
 
+  router = inject(Router)
+
   activatedRoute = inject(ActivatedRoute);
   queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? ''
 
@@ -30,9 +32,12 @@ export default class ByCapitalPageComponent {
   countryResource = rxResource({
     request: () => ({ query: this.query() }),
     loader: ({ request }) => {
-      console.log(request.query)
       // of es para regresar un observable
       if (!request.query) return of([]);
+
+      this.router.navigate(['/country/by-capital'],{
+        queryParams: {query: request.query}
+      });
 
       return this.countryService.searchByCapital(request.query)
     }

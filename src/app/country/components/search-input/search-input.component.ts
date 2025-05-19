@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, input, linkedSignal, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, linkedSignal, output } from '@angular/core';
 
 @Component({
   selector: 'search-input',
