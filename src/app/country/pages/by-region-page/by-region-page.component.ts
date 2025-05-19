@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, linkedSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, linkedSignal } from '@angular/core';
 import { CountryListComponent } from "../../components/country-list/country-list.component";
 import type { Region } from '../../interfaces/region.type';
 import { rxResource } from '@angular/core/rxjs-interop';
