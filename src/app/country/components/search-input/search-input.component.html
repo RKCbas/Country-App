@@ -6,7 +6,8 @@
     autofocus
     #txtSearch
     (keyup.enter)="search.emit(txtSearch.value)"
-  />
+    (keyup)="inputValue.set(txtSearch.value)"
+    />
 
   <button
     class="btn btn-primary"
