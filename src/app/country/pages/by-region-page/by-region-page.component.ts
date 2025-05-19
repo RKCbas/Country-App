@@ -1,9 +1,26 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, linkedSignal, signal } from '@angular/core';
 import { CountryListComponent } from "../../components/country-list/country-list.component";
-import { Region } from '../../interfaces/region.type';
+import type { Region } from '../../interfaces/region.type';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CountryService } from '../../services/country.service';
 import { of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+
+function validateQueryParam(queryParam: string): Region {
+  queryParam = queryParam.toLowerCase();
+
+  const validRegions: Record<string, Region> = {
+    'africa': 'Africa',
+    'americas': 'Americas',
+    'antarctic': 'Antarctic',
+    'asia': 'Asia',
+    'europe': 'Europe',
+    'oceania': 'Oceania',
+  };
+  
+  return validRegions[queryParam] ?? 'Americas';
+
+}
 
 @Component({
   selector: 'by-region-page',
@@ -15,25 +32,34 @@ export default class ByRegionPageComponent {
 
   countryService = inject(CountryService);
 
+  router = inject(Router);
+
+  activatedRoute = inject(ActivatedRoute);
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('region') ?? '';
+
   public regions: Region[] = [
     'Africa',
     'Americas',
+    'Antarctic',
     'Asia',
     'Europe',
     'Oceania',
-    'Antarctic',
   ];
 
-  selectedRegion = signal<Region | null>(null)
+  selectedRegion = linkedSignal<Region | null>(() => validateQueryParam(this.queryParam))
 
   countryResource = rxResource({
     request: () => ({ region: this.selectedRegion() }),
     loader: ({ request }) => {
 
-      if(!request.region) return of([]);
+      if (!request.region) return of([]);
+
+      this.router.navigate(['country/by-region'], {
+        queryParams: { region: request.region }
+      });
 
       return this.countryService.searchByRegion(request.region)
-      
+
     }
   });
 

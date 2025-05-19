@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, linkedSignal, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, linkedSignal } from '@angular/core';
 import { CountryListComponent } from '../../components/country-list/country-list.component';
 import { SearchInputComponent } from '../../components/search-input/search-input.component';
 import { CountryService } from '../../services/country.service';

@@ -16,7 +16,7 @@
 </section>
 
 <country-list 
-  [countries]="countryResource.value() ?? []" 
+  [countries]="countryResource.value() ?? []"
   [errorMessage]="countryResource.error()"
   [isEmpty]="countryResource.value()?.length===0"
   [isLoading]="countryResource.isLoading()"

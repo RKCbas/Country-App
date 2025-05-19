@@ -4,5 +4,12 @@
             "externalTemplate": true,
             "skipStyle": true
         }
-    }
+    },
+    "cSpell.words": [
+        "africa",
+        "americas",
+        "asia",
+        "europe",
+        "oceania"
+    ]
 }
