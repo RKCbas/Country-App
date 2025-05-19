@@ -23,7 +23,7 @@ export default class ByCountryPageComponent {
     request: () => ({ query: this.query() }),
     loader: ({ request }) => {
 
-      if(!this.query()) return of([]);
+      if(!request.query) return of([]);
 
       return this.countryService.searchByCountry(request.query)
       

@@ -24,7 +24,7 @@ export default class ByCapitalPageComponent {
     request: () => ({ query: this.query() }),
     loader: ({ request }) => {
       // of es para regresar un observable
-      if(!this.query()) return of([]);
+      if(!request.query) return of([]);
 
       return this.countryService.searchByCapital(request.query)
     }
