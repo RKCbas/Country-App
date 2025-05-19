@@ -1,15 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, linkedSignal, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop'
+
+import { of } from 'rxjs';
+
 import { CountryListComponent } from "../../components/country-list/country-list.component";
 import { SearchInputComponent } from "../../components/search-input/search-input.component";
 import { CountryService } from '../../services/country.service';
 // import { Country } from '../../interfaces/country.interface';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'by-capital-page',
   imports: [
-    CountryListComponent, 
+    CountryListComponent,
     SearchInputComponent
   ],
   templateUrl: './by-capital-page.component.html',
@@ -18,13 +21,18 @@ import { of } from 'rxjs';
 export default class ByCapitalPageComponent {
 
   countryService = inject(CountryService)
-  query = signal('');
+
+  activatedRoute = inject(ActivatedRoute);
+  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? ''
+
+  query = linkedSignal(() => this.queryParam);
 
   countryResource = rxResource({
     request: () => ({ query: this.query() }),
     loader: ({ request }) => {
+      console.log(request.query)
       // of es para regresar un observable
-      if(!request.query) return of([]);
+      if (!request.query) return of([]);
 
       return this.countryService.searchByCapital(request.query)
     }
@@ -48,7 +56,7 @@ export default class ByCapitalPageComponent {
   // countries = signal<Country[]>([]);
 
   // handleOnSearch(query:string){
-    
+
   //   if(this.isLoading() )return;
 
   //   this.isLoading.set(true);

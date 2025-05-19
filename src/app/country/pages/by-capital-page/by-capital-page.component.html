@@ -1,5 +1,6 @@
 <search-input
   [placeholder]="'Buscar por capital'"
+  [initialValue]="query()"
   (search)="query.set($event)"
 />
 
