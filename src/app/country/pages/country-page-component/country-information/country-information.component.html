@@ -1,12 +1,14 @@
 <section class="flex sm:items-center sm:justify-center">
-  <div class="stats stats-vertical sm:stats-horizontal shadow mx-5">
+  <div
+    class="stats stats-vertical md:stats-horizontal md:items-center sm:justify-center sm:place-items-center shadow mx-0 md:mx-5 gap-4"
+  >
     <div class="stat sm:place-items-center">
       <div class="stat-title">Población</div>
       <div class="stat-value">{{ country().population | number }}</div>
       <div class="stat-desc">Desde {{ currentYear() }}</div>
     </div>
 
-    <div class="stat sm:place-items-center">
+    <div class="stat sm:place-items-center mx-auto">
       <div class="stat-title">Nombre</div>
       <div class="stat-value text-secondary">{{ country().name }}</div>
       <div class="stat-desc text-secondary">{{ country().region }}</div>
@@ -20,44 +22,79 @@
   </div>
 </section>
 
-<section class="mx-auto my-5 flex flex-col sm:flex-row items-center justify-center">
-  
-  <svg
-    class="h-50 w-50 sm:h-105 sm:w-105"
-    xmlns="http://www.w3.org/2000/svg"
-    
-    viewBox="0 0 20 20"
+<section
+  class="mx-auto my-5 flex flex-col md:flex-row items-center justify-center"
+>
+  <!--  -->
+  @if (imagesResource.isLoading()) {
+  <div
+    class="w-80 h-80 sm:w-150 sm:h-150 md:w-110 md:h-110 rounded-box place-items-center text-center"
   >
-    <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
-      <path
-        d="M5 9a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
-      />
-      <path
-        d="M3.854 8.896a.5.5 0 0 1 0 .708l-.338.337A3.47 3.47 0 0 0 2.5 12.394v1.856a.5.5 0 1 1-1 0v-1.856a4.47 4.47 0 0 1 1.309-3.16l.337-.338a.5.5 0 0 1 .708 0m11.792-.3a.5.5 0 0 0 0 .708l.338.337A3.47 3.47 0 0 1 17 12.094v2.156a.5.5 0 0 0 1 0v-2.156a4.47 4.47 0 0 0-1.309-3.16l-.337-.338a.5.5 0 0 0-.708 0"
-      />
-      <path
-        d="M14 9a2 2 0 1 1 0-4a2 2 0 0 1 0 4m0 1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m-4.5 3.25a2.5 2.5 0 0 0-2.5 2.5v1.3a.5.5 0 0 1-1 0v-1.3a3.5 3.5 0 0 1 7 0v1.3a.5.5 0 1 1-1 0v-1.3a2.5 2.5 0 0 0-2.5-2.5"
-      />
-      <path
-        d="M9.5 11.75a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
-      />
-    </g>
-  </svg>
-
-  <figure class="diff aspect-video h-40 md:h-100 sm:h-75 w-auto sm:w-150 mx-2" tabindex="0">
-    <div class="diff-item-1" role="img" tabindex="0">
+    <h1 class="text-3xl">
+      Cargando &nbsp;<span class="loading loading-infinity loading-xl"></span>
+    </h1>
+  </div>
+  }
+  <!--  -->
+  @if (imagesResource.hasValue()) {
+  <div
+    class="w-80 h-80 sm:w-150 sm:h-150 md:w-110 md:h-110 items-center justify-center flex"
+  >
+    <div class="grid grid-cols-2 h-full rounded-box overflow-hidden">
+      @for (image of imagesResource.value()!; track image.id) {
       <img
-        class="blur brightness-75"
-        [alt]="country().name"
-        [src]="country().flagSvg"
+        [src]="image.imageUrl"
+        [alt]="image.alt_description"
+        class="w-full h-full object-cover"
       />
+      }
     </div>
-    <div class="diff-item-2" role="img">
-      <img [alt]="country().name" [src]="country().flagSvg" />
-    </div>
-    <div class="diff-resizer"></div>
-  </figure>
+  </div>
+  }@else {
+  <div class="hidden md:flex w-auto h-auto rounded-box place-items-center">
+    <svg
+      class="hidden w-0 h-0 md:flex md:w-100 md:h-100"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+    >
+      <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+        <path
+          d="M5 9a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+        />
+        <path
+          d="M3.854 8.896a.5.5 0 0 1 0 .708l-.338.337A3.47 3.47 0 0 0 2.5 12.394v1.856a.5.5 0 1 1-1 0v-1.856a4.47 4.47 0 0 1 1.309-3.16l.337-.338a.5.5 0 0 1 .708 0m11.792-.3a.5.5 0 0 0 0 .708l.338.337A3.47 3.47 0 0 1 17 12.094v2.156a.5.5 0 0 0 1 0v-2.156a4.47 4.47 0 0 0-1.309-3.16l-.337-.338a.5.5 0 0 0-.708 0"
+        />
+        <path
+          d="M14 9a2 2 0 1 1 0-4a2 2 0 0 1 0 4m0 1a3 3 0 1 1 0-6a3 3 0 0 1 0 6m-4.5 3.25a2.5 2.5 0 0 0-2.5 2.5v1.3a.5.5 0 0 1-1 0v-1.3a3.5 3.5 0 0 1 7 0v1.3a.5.5 0 1 1-1 0v-1.3a2.5 2.5 0 0 0-2.5-2.5"
+        />
+        <path
+          d="M9.5 11.75a2 2 0 1 0 0-4a2 2 0 0 0 0 4m0 1a3 3 0 1 0 0-6a3 3 0 0 0 0 6"
+        />
+      </g>
+    </svg>
+  </div>
+  }
 
-  <google-map-viewer [location]="country().name"/>
+  <div class="place-items-center">
+    <figure
+      class="diff aspect-video w-auto h-45 sm:w-150 sm:h-110 mx-2 my-4"
+      tabindex="0"
+    >
+      <div class="diff-item-1" role="img" tabindex="0">
+        <img
+          class="blur brightness-75"
+          [alt]="country().name"
+          [src]="country().flagSvg"
+        />
+      </div>
+      <div class="diff-item-2" role="img">
+        <img [alt]="country().name" [src]="country().flagSvg" />
+      </div>
+      <div class="diff-resizer"></div>
+    </figure>
+  </div>
 
+  <div class="place-items-center">
+    <google-map-viewer [location]="country().name" />
+  </div>
 </section>

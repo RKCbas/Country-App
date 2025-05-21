@@ -5,6 +5,30 @@ Example deployed at:
 
 - [https://country-searcher-seb.netlify.app/](https://country-searcher-seb.netlify.app/)
 
+## Cloned the repository from github
+
+In case that you cloned the repository you must do the following:
+
+You must Create 2 environment files in the environments folder with the next syntax:
+
+Filename: 'environment.development.ts' and 'environment.ts'
+
+``` Typescript
+export const environment = {
+
+    // Api Keys
+    unsplashClientId: 'Your Unsplash Client Id',
+    unsplashSearchUrl: 'https://api.unsplash.com/search/photos/'
+
+}
+```
+
+And you must install the dependencies by using the following command:
+
+```bash
+npm i
+```
+
 ## Development server
 
 To start a local development server, run:

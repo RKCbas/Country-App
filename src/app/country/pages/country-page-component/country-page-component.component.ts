@@ -26,8 +26,6 @@ export default class CountryPageComponentComponent {
     }
   })
 
-  constructor() {
-
-  }
+  
 
 }
